@@ -28,36 +28,54 @@ function getRandomItem(arr) {
 
 function handleGuess(userGuess, correctSpot) {
     // should reset the styles
+    resetStyles();
 
     // then increment the guesses
+    totalGuesses++;
 
     // then grab the appropriate container element for the correct guess from the DOM
-
+    const correctLocation correctSpot + '-container';
+    const correctLocationEl = document.getElementById(correctLocationId);
+    
     // then add the face class to that element so that the face shows up
-
+    correctLocationEl.classList.add('face');
+    
     // then if the user guess is correct, increment the correct guesses
+    if (userGuess === correctSpot) {
+        correctGuesses++;
+    }
 
     // update the DOM to show this change to the user (including the losses, not tracked directly in state)
+    winsEl.textContent = correctGuesses;
+    lossesEl.textContent =
+    totalEl.textContent = totalGuesses;
 }
 
 function resetStyles() {
     // should remove the face class from all containers
+    shedContainer.classList.remove("face");
+    treeContainer.classList.remove("face");
+    boulderContainer.classList.remove("face");
 }
 
 shedButton.addEventListener('click', () => {
     // should get a random item to call the 'correct spot'
-
+    const correctSpot = getRandomItem(hidingPlaces);
+    const UserGuess = 
     // then use that correct spot to 'handle the guess' using the handleGuess function
+    handleGuess(correctSpot);
 });
 
 treeButton.addEventListener('click', () => {
     // should get a random item to call the 'correct spot'
-
+    const correctSpot = getRandomItem(hidingPlaces);
     // then use that correct spot to 'handle the guess' using the handleGuess function
+    handleGuess(correctSpot);
 });
 
 boulderButton.addEventListener('click', () => {
     // should get a random item to call the 'correct spot'
-
+    const correctSpot = getRandomItem(hidingPlaces);
     // then use that correct spot to 'handle the guess' using the handleGuess function
+    handleGuess(correctSpot, UserGuess);
 });
