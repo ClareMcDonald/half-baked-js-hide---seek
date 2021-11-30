@@ -8,6 +8,7 @@ const treeContainer = document.getElementById('tree-container');
 const boulderContainer = document.getElementById('boulder-container');
 
 const totalEl = document.getElementById('total');
+const lossesEl = document.getElementById('losses');
 const winsEl = document.getElementById('wins');
 
 // initialize state
@@ -27,6 +28,7 @@ function getRandomItem(arr) {
 }
 
 function handleGuess(userGuess, correctSpot) {
+    console.log(userGuess, correctSpot);
     // should reset the styles
     resetStyles();
 
@@ -34,48 +36,50 @@ function handleGuess(userGuess, correctSpot) {
     totalGuesses++;
 
     // then grab the appropriate container element for the correct guess from the DOM
-    const correctLocation correctSpot + '-container';
-    const correctLocationEl = document.getElementById(correctLocationId);
+    const correctEl = document.getElementById(`${correctSpot}-container`);
     
     // then add the face class to that element so that the face shows up
-    correctLocationEl.classList.add('face');
+    correctEl.classList.add('face');
     
     // then if the user guess is correct, increment the correct guesses
     if (userGuess === correctSpot) {
         correctGuesses++;
     }
 
+
     // update the DOM to show this change to the user (including the losses, not tracked directly in state)
     winsEl.textContent = correctGuesses;
-    lossesEl.textContent =
+    lossesEl.textContent = totalGuesses - correctGuesses;
     totalEl.textContent = totalGuesses;
 }
 
 function resetStyles() {
     // should remove the face class from all containers
-    shedContainer.classList.remove("face");
-    treeContainer.classList.remove("face");
-    boulderContainer.classList.remove("face");
+    shedContainer.classList.remove('face');
+    treeContainer.classList.remove('face');
+    boulderContainer.classList.remove('face');
 }
 
 shedButton.addEventListener('click', () => {
     // should get a random item to call the 'correct spot'
-    const correctSpot = getRandomItem(hidingPlaces);
-    const UserGuess = 
+    const randomPlace = getRandomItem(hidingPlaces);
+    
     // then use that correct spot to 'handle the guess' using the handleGuess function
-    handleGuess(correctSpot);
+    handleGuess('shed', randomPlace);
 });
 
 treeButton.addEventListener('click', () => {
     // should get a random item to call the 'correct spot'
-    const correctSpot = getRandomItem(hidingPlaces);
+    const randomPlace = getRandomItem(hidingPlaces);
+    
     // then use that correct spot to 'handle the guess' using the handleGuess function
-    handleGuess(correctSpot);
+    handleGuess('tree', randomPlace);
 });
 
 boulderButton.addEventListener('click', () => {
     // should get a random item to call the 'correct spot'
-    const correctSpot = getRandomItem(hidingPlaces);
+    const randomPlace = getRandomItem(hidingPlaces);
+    
     // then use that correct spot to 'handle the guess' using the handleGuess function
-    handleGuess(correctSpot, UserGuess);
+    handleGuess('boulder', randomPlace);
 });
